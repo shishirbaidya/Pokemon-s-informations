@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-import time
+import db as database
 
 def fetch_pokemon(name):
     url = f'https://pokeapi.co/api/v2/pokemon/{name.lower()}'
@@ -18,7 +18,8 @@ def fetch_pokemon(name):
         "image": data["sprites"]["other"]["official-artwork"]["front_default"],
         "types": [t["type"]["name"].title() for t in data["types"]]
     }
-
+    # storing in db form here ,,,
+    database.insert_query(pokemon_data['name'],pokemon_data['weight'],pokemon_data['id'])
     return pokemon_data
 
 
